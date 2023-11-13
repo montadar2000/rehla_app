@@ -43,7 +43,7 @@ class LoginController extends GetxController{
       print('Running on ${iosInfo.identifierForVendor}');
     }
 
-    notificationToken='dftyujnbfrtyujht567890';
+    notificationToken='notificationTokenNotUsedYet';
   }
   Future<void> Login_send() async {
 print(phone);

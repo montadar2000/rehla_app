@@ -12,7 +12,7 @@ final width,height;
       child: Container(color: AppColors.black.withOpacity(0.4),
           width: width,height: height,
           child: Center(child: Container(
-              width: width*0.25,height: height*0.25,
+              width: width*0.15,height: height*0.15,
               child: Lottie.asset('assets/lotties/progress.json')))),
 
     );

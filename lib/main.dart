@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       getPages: AppPages().pages,
-      initialRoute: accessUserToken==""?AppPath.login:AppPath.home,
+      initialRoute: accessUserToken==""?AppPath.splash:AppPath.home,
       //initialRoute:AppPath.home,
     );
   }

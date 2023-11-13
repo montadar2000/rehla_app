@@ -6,6 +6,7 @@ import 'package:welcome_screen/constant/app_color.dart';
 import 'package:welcome_screen/controller/forget_controller.dart';
 import 'package:welcome_screen/controller/otp_controller.dart';
 import 'package:welcome_screen/controller/register_controller.dart';
+import 'package:welcome_screen/main.dart';
 import 'package:welcome_screen/routes/path.dart';
 
 import '../widgets/progress_dialog.dart';
@@ -55,19 +56,64 @@ class OtpScreen extends GetView<OtpController> {
                                   image: AssetImage('assets/images/otp.png'))),
                         ),
                         SizedBox(height: height*0.05,),
-                        Text("رمز التحقق مرة واحدة",style: GoogleFonts.readexPro(fontWeight: FontWeight.w600,fontSize: 22),),
+                        Text(language?"One Time Password Verification":"رمز التحقق مرة واحدة",style: GoogleFonts.readexPro(fontWeight: FontWeight.w600,fontSize: 22),),
                         SizedBox(height: height*0.03,),
-                        Text("ادخل الرمز المستلم على الرقم : ${forgetController.phoneFiled}" ,style: GoogleFonts.readexPro(fontSize: 15),textDirection: TextDirection.rtl,)
-                        ,SizedBox(height: height*0.03,),
+
+                        Get.previousRoute=="/forget"? Column(
+                          children: [
+                            Container(padding: const EdgeInsets.symmetric(horizontal: 15),
+                              width: width,height: height*0.06,decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),color: AppColors.white
+                                  ,border: Border.all(width: 0.5)
+                              ),
+                              child: Center(
+                                child: TextFormField(obscureText: true,
+                                  onChanged: (v){
+                                    controller.newPassword=v;
+                                  },
+                                  textAlign: TextAlign.right,
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText:language?"New Password": "كلمة المرور الجديدة",
+                                      hintStyle: GoogleFonts.readexPro(fontSize: 15)
+                                  ),),
+                              ),),
+                            SizedBox(height: 10,),
+                            Container(padding: const EdgeInsets.symmetric(horizontal: 15),
+                              width: width,height: height*0.06,decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),color: AppColors.white
+                                  ,border: Border.all(width: 0.5)
+                              ),
+                              child: Center(
+                                child: TextFormField(obscureText: true,
+                                  onChanged: (v){
+                                    controller.confirmPassword=v;
+                                  },
+                                  textAlign: TextAlign.right,
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: language?"Confirm Password":"تأكيد كلمة المرور الجديدة",
+                                      hintStyle: GoogleFonts.readexPro(fontSize: 15)
+                                  ),),
+                              ),),
+                          ],
+                        ):Container(),
+                        SizedBox(height: 20,),
+                        Get.previousRoute=="/forget"?Text(language?"Enter the receiving OTP on the Number ${forgetController.phoneFiled}":"ادخل الرمز المستلم على الرقم : ${forgetController.phoneFiled}" ,style: GoogleFonts.readexPro(fontSize: 15),textDirection:
+                        language?TextDirection.ltr:TextDirection.rtl,):
+                        Text(language?"Enter the receiving OTP on the Number ${registerController.phone}":"ادخل الرمز المستلم على الرقم : ${registerController.phone}" ,style: GoogleFonts.readexPro(fontSize: 15),textDirection:
+                        language?TextDirection.ltr:TextDirection.rtl,)
+                        ,SizedBox(height: 15,),
                         Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Container(width: width*0.13,height: width*0.13,
+                            Container(width:width<500?50:65,height: width<500?50:65,
                             padding: EdgeInsets.all(5),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),color: AppColors.appWhite,
-                              border: Border.all(width: 0.3),
+                              border: Border.all(width: 0.5),
                             ),
                             child: TextFormField(maxLength: 1,keyboardType: TextInputType.number,
+
 
 
                               textAlign: TextAlign.center,
@@ -86,7 +132,7 @@ class OtpScreen extends GetView<OtpController> {
                               ),
                             ),
                             ),
-                            Container(width: width*0.13,height: width*0.13,
+                            Container(width:width<500?50:65,height: width<500?50:65,
                               padding: EdgeInsets.all(5),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),color: AppColors.appWhite,
@@ -111,7 +157,7 @@ class OtpScreen extends GetView<OtpController> {
                                 ),
                               ),
                             ),
-                            Container(width: width*0.13,height: width*0.13,
+                            Container(width:width<500?50:65,height: width<500?50:65,
                               padding: EdgeInsets.all(5),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),color: AppColors.appWhite,
@@ -137,7 +183,7 @@ class OtpScreen extends GetView<OtpController> {
                                     border: InputBorder.none
                                 ),
                               ),),
-                            Container(width: width*0.13,height: width*0.13,
+                            Container(width:width<500?50:65,height: width<500?50:65,
                               padding: EdgeInsets.all(5),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),color: AppColors.appWhite,
@@ -163,7 +209,7 @@ class OtpScreen extends GetView<OtpController> {
                                     border: InputBorder.none
                                 ),
                               ),),
-                            Container(width: width*0.13,height: width*0.13,
+                            Container(width:width<500?50:65,height: width<500?50:65,
                               padding: EdgeInsets.all(5),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),color: AppColors.appWhite,
@@ -189,7 +235,7 @@ class OtpScreen extends GetView<OtpController> {
                                     border: InputBorder.none
                                 ),
                               ),),
-                            Container(width: width*0.13,height: width*0.13,
+                            Container(width:width<500?50:65,height: width<500?50:65,
                               padding: EdgeInsets.all(5),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),color: AppColors.appWhite,
@@ -219,13 +265,14 @@ class OtpScreen extends GetView<OtpController> {
                           ],
                         ),
 
-                        SizedBox(height: height*0.04,),
+                        SizedBox(height: height*0.02,),
                         GetBuilder<OtpController>(builder: (controller)=>Text("00:${controller.seconds} sec",style:
                           GoogleFonts.readexPro(fontSize: 17),)),
-                        SizedBox(height: height*0.03,),
-                        Row(mainAxisAlignment: MainAxisAlignment.center,
+                        SizedBox(height: height*0.02,),
+                        language?Row(mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            GestureDetector(onTap:Get.previousRoute=="/forget"? () async {
+                            Text("Don't Receive the Code? ",style: GoogleFonts.readexPro(fontSize: 16),),
+                            GetBuilder<OtpController>(builder: (controller)=>GestureDetector(onTap:controller.seconds==0?Get.previousRoute=="/forget"? () async {
 
 
                               controller.isProgress=true;
@@ -239,16 +286,17 @@ class OtpScreen extends GetView<OtpController> {
                               controller.startTimer();
                               controller.update();
                               if(forgetController.statusCode!=200){
-                                Get.snackbar("Error", "something wrong try again",backgroundColor: AppColors.appRed,snackPosition:
+                                Get.snackbar("Error","Something Wrong, try Again",backgroundColor: AppColors.appRed,snackPosition:
                                 SnackPosition.BOTTOM);
 
                               }
                               else{
-                                Get.snackbar("Success", "OTP sent successfully",backgroundColor: AppColors.green,snackPosition:
+                                Get.snackbar("Success","Code Sent Successfully",backgroundColor: AppColors.green,snackPosition:
                                 SnackPosition.BOTTOM);
 
                               }
-                              }:() async {
+                            }:
+                                () async {
                               controller.isProgress=true;
                               controller.update();
 
@@ -258,12 +306,71 @@ class OtpScreen extends GetView<OtpController> {
                               print("finish function");
                               if(registerController.statusCodeOTP!=200){
 
-                                Get.snackbar("Error", "something wrong",backgroundColor: AppColors.appRed,snackPosition:
+                                Get.snackbar("Error","Something Wrong, try Again",backgroundColor: AppColors.appRed,snackPosition:
                                 SnackPosition.BOTTOM);
 
                               }
                               else{
-                                Get.snackbar("Success", "OTP sent successfully",backgroundColor: AppColors.green,snackPosition:
+                                Get.snackbar("Success","Code Sent Successfully",backgroundColor: AppColors.green,snackPosition:
+                                SnackPosition.BOTTOM);
+
+                              }
+                              print("send again register");
+                              controller.timer.cancel();
+                              controller.seconds=120;
+                              controller.startTimer();
+                              controller.isProgress=false;
+                              controller.update();
+                            }:null,
+                              child: Text(
+                                "Send Again",style: GoogleFonts.readexPro(fontWeight: FontWeight.bold,fontSize: 16),
+                              ),
+                            ),)
+
+                          ],
+                        ):
+                        Row(mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(onTap:controller.seconds==0?Get.previousRoute=="/forget"? () async {
+
+
+                              controller.isProgress=true;
+                              controller.update();
+                              await forgetController.forgetPassword();
+                              print(forgetController.statusCode);
+                              controller.isProgress=false;
+                              print("send again forget");
+                              controller.timer.cancel();
+                              controller.seconds=120;
+                              controller.startTimer();
+                              controller.update();
+                              if(forgetController.statusCode!=200){
+                                Get.snackbar("خطأ","حدث خطأ، الرجاء اعادة المحاولة",backgroundColor: AppColors.appRed,snackPosition:
+                                SnackPosition.BOTTOM);
+
+                              }
+                              else{
+                                Get.snackbar("نجح","تم ارسال الرمز بنجاح",backgroundColor: AppColors.green,snackPosition:
+                                SnackPosition.BOTTOM);
+
+                              }
+                              }:
+                                () async {
+                              controller.isProgress=true;
+                              controller.update();
+
+                              print("start function");
+
+                              await registerController.sendOtp();
+                              print("finish function");
+                              if(registerController.statusCodeOTP!=200){
+
+                                Get.snackbar("خطأ", "حدث خطأ، الرجاء اعادة المحاولة",backgroundColor: AppColors.appRed,snackPosition:
+                                SnackPosition.BOTTOM);
+
+                              }
+                              else{
+                                Get.snackbar("نجح","تم ارسال الرمز بنجاح",backgroundColor: AppColors.green,snackPosition:
                                 SnackPosition.BOTTOM);
                               }
                               print("send again register");
@@ -272,9 +379,11 @@ class OtpScreen extends GetView<OtpController> {
                               controller.startTimer();
                               controller.isProgress=false;
                               controller.update();
-                            },child: Text(
+                            }:null,
+                              child: Text(
                               "اعادة ارسال",style: GoogleFonts.readexPro(fontWeight: FontWeight.bold,fontSize: 16),
-                            ),),
+                            ),
+                            ),
                             Text("لم يصلك الرمز ؟",style: GoogleFonts.readexPro(fontSize: 16),)
                           ],
                         ),
@@ -290,13 +399,13 @@ class OtpScreen extends GetView<OtpController> {
                              Map<String,dynamic> response=await controller.verification(registerController.phone);
                              if(controller.stausCode==200){
                                Get.offAllNamed(AppPath.login);
-                               Get.snackbar("Error", "Register Successfully, Now you can login",backgroundColor: AppColors.green,snackPosition:
+                               Get.snackbar(language?"Success":"نجح", language?"Register Successfully, Now you can login":"نجحت عملية انشاء الحساب يمكنك تسجيل الدخول الان",backgroundColor: AppColors.green,snackPosition:
                                SnackPosition.BOTTOM);
                                controller.isProgress=false;
                                controller.update();
                              }
                              else{
-                               Get.snackbar("Error", "Please Try Again",backgroundColor: AppColors.appRed,snackPosition:
+                               Get.snackbar(language?"Error":"خطأ",language? "Please Try Again":"الرجاء اعادة المحاولة",backgroundColor: AppColors.appRed,snackPosition:
                                SnackPosition.BOTTOM);
                                controller.isProgress=false;
                                controller.update();
@@ -304,13 +413,30 @@ class OtpScreen extends GetView<OtpController> {
                              print(registerController.phone);
                              print(response);
 
-                           }:(){
+                           }:() async {
                              print("forget");
+
+                             if(controller.newPassword.length>=8){
+                               if(controller.newPassword==controller.confirmPassword){
+
+                                 await controller.change_password(forgetController.phoneFiled);
+                               }
+                               else{
+                                 Get.snackbar(language?"Error":"خطأ",language?"the new password not same as confirm password":"كلمة المرور غير متطابقة",backgroundColor: AppColors.appRed);
+                               }
+
+                             }
+                             else{
+
+                               Get.snackbar(language?"Error":"خطأ",language?"the password should be greater then 8 chars":"يجب ان تكون كلمة السر اكبر من 8 حروف او ارقام",backgroundColor: AppColors.appRed);
+                             }
+
+
                            }:null,
                            child: Container(padding: EdgeInsets.all(10),
-                             width: width,height: height*0.07,
+                             width: width,
                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color:controller.seconds!=0&&controller.convertOtpTONumber()!=0?AppColors.appPurpole4:AppColors.appPurpole2,),
-                             child: Center(child: Text("التالي",style: GoogleFonts.readexPro(fontSize: 20,fontWeight: FontWeight.w600,color: AppColors.white),)),
+                             child: Center(child: Text(language?"Next":"التالي",style: GoogleFonts.readexPro(fontSize: 20,fontWeight: FontWeight.w600,color: AppColors.white),)),
                            ))),
 
 

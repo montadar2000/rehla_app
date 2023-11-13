@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
 
@@ -62,6 +64,9 @@ Future<String?> pickFile() async {
       uploadStatus=false;
       return;
     }
+    print(filePath);
+    File file=File(filePath!);
+    print(file.existsSync());
     var multipartFile = await http.MultipartFile.fromPath('file', filePath!);
     request.headers['Authorization'] = 'Bearer $accessUserToken';
     request.fields['userId'] = homeController.user.id.toString();
@@ -76,6 +81,7 @@ print("test");
         uploadStatus=true;
       } else {
         print('Failed to upload file: ${response.statusCode}');
+
         uploadStatus=false;
       }
     } catch (e) {

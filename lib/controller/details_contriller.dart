@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import 'courses_controller.dart';
 
 class DetailsController extends GetxController{
-  bool subscribe=true,lectList=true;
+  bool subscribe=true,
+      lectList=true;
   List chemistryLectures=[
     {
       "video_url":"",
@@ -69,9 +70,9 @@ class DetailsController extends GetxController{
 
   void allVideo(){
     list=coursesController.availableCourses[coursesController.indexCourseClicked]
-        .courseVideos;
+        .courseVideos!;
     list2=coursesController.availableCourses[coursesController.indexCourseClicked]
-        .exam;
+        .exam!;
 
   }
 

@@ -199,99 +199,99 @@ class SettingScreen extends GetView<SettingController> {
                     SizedBox(
                       height: height * 0.04,
                     ),
-                    GestureDetector(
-                      child: Container(
-                        width: width,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Row(
-                          mainAxisAlignment:language?MainAxisAlignment.start: MainAxisAlignment.end,
-                          children: language?[
-                            SvgPicture.asset(
-                              "assets/icons/dollar.svg",
-                              width: 25,
-                              height: 25,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "payment history",
-                              style: GoogleFonts.readexPro(
-                                  fontSize: 20, fontWeight: FontWeight.w500),
-                            ),
-                          ]:[
-                            Text(
-                              "عرض تاريخ الدفع",
-                              style: GoogleFonts.readexPro(
-                                  fontSize: 20, fontWeight: FontWeight.w500),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            SvgPicture.asset(
-                              "assets/icons/dollar.svg",
-                              width: 25,
-                              height: 25,
-                            )
-                          ],
-                        ),
-                      ),
-                      onTap: () {
-                        print("payment history");
-                        Get.toNamed(AppPath.paymentHistory);
-                      },
-                    ),
-                    SizedBox(
-                      height: height * 0.04,
-                    ),
-                    GestureDetector(
-                      child: Container(
-                        width: width,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Row(
-                          mainAxisAlignment:language?MainAxisAlignment.start: MainAxisAlignment.end,
-                          children:language?[SvgPicture.asset(
-                            "assets/icons/wallet.svg",
-                            width: 25,
-                            height: 25,
-                          ),
-
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "my wallet",
-                              style: GoogleFonts.readexPro(
-                                  fontSize: 20, fontWeight: FontWeight.w500),
-                            ),
-                          ]: [
-                            Text(
-                              "محفظي",
-                              style: GoogleFonts.readexPro(
-                                  fontSize: 20, fontWeight: FontWeight.w500),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            SvgPicture.asset(
-                              "assets/icons/wallet.svg",
-                              width: 25,
-                              height: 25,
-                            )
-                          ],
-                        ),
-                      ),
-                      onTap: () {
-                        print("my wallet");
-                      },
-                    ),
-                    SizedBox(
-                      height: height * 0.04,
-                    ),
+                    // GestureDetector(
+                    //   child: Container(
+                    //     width: width,
+                    //     decoration: BoxDecoration(
+                    //       borderRadius: BorderRadius.circular(10),
+                    //     ),
+                    //     child: Row(
+                    //       mainAxisAlignment:language?MainAxisAlignment.start: MainAxisAlignment.end,
+                    //       children: language?[
+                    //         SvgPicture.asset(
+                    //           "assets/icons/dollar.svg",
+                    //           width: 25,
+                    //           height: 25,
+                    //         ),
+                    //         SizedBox(
+                    //           width: 10,
+                    //         ),
+                    //         Text(
+                    //           "payment history",
+                    //           style: GoogleFonts.readexPro(
+                    //               fontSize: 20, fontWeight: FontWeight.w500),
+                    //         ),
+                    //       ]:[
+                    //         Text(
+                    //           "عرض تاريخ الدفع",
+                    //           style: GoogleFonts.readexPro(
+                    //               fontSize: 20, fontWeight: FontWeight.w500),
+                    //         ),
+                    //         SizedBox(
+                    //           width: 10,
+                    //         ),
+                    //         SvgPicture.asset(
+                    //           "assets/icons/dollar.svg",
+                    //           width: 25,
+                    //           height: 25,
+                    //         )
+                    //       ],
+                    //     ),
+                    //   ),
+                    //   onTap: () {
+                    //     print("payment history");
+                    //     Get.toNamed(AppPath.paymentHistory);
+                    //   },
+                    // ),
+                    // SizedBox(
+                    //   height: height * 0.04,
+                    // ),
+                    // GestureDetector(
+                    //   child: Container(
+                    //     width: width,
+                    //     decoration: BoxDecoration(
+                    //       borderRadius: BorderRadius.circular(10),
+                    //     ),
+                    //     child: Row(
+                    //       mainAxisAlignment:language?MainAxisAlignment.start: MainAxisAlignment.end,
+                    //       children:language?[SvgPicture.asset(
+                    //         "assets/icons/wallet.svg",
+                    //         width: 25,
+                    //         height: 25,
+                    //       ),
+                    //
+                    //         SizedBox(
+                    //           width: 10,
+                    //         ),
+                    //         Text(
+                    //           "my wallet",
+                    //           style: GoogleFonts.readexPro(
+                    //               fontSize: 20, fontWeight: FontWeight.w500),
+                    //         ),
+                    //       ]: [
+                    //         Text(
+                    //           "محفظي",
+                    //           style: GoogleFonts.readexPro(
+                    //               fontSize: 20, fontWeight: FontWeight.w500),
+                    //         ),
+                    //         SizedBox(
+                    //           width: 10,
+                    //         ),
+                    //         SvgPicture.asset(
+                    //           "assets/icons/wallet.svg",
+                    //           width: 25,
+                    //           height: 25,
+                    //         )
+                    //       ],
+                    //     ),
+                    //   ),
+                    //   onTap: () {
+                    //     print("my wallet");
+                    //   },
+                    // ),
+                    // SizedBox(
+                    //   height: height * 0.04,
+                    // ),
                     GestureDetector(
                       child: Container(
                         width: width,

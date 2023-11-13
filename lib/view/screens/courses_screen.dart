@@ -188,15 +188,16 @@ class Courses extends GetView<CoursesController> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
+
                                   children: language?[
                                     //courses[0].courseVideos![0].uriVideo
-                                    Flexible(
+                                    SizedBox(width: width*0.4,height: 200,
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             controller.availableCourses[index]
-                                                .title,
+                                                .title!,
                                             style: GoogleFonts.readexPro(
                                               fontSize: 18,
                                               fontWeight: FontWeight.w500,
@@ -269,7 +270,7 @@ class Courses extends GetView<CoursesController> {
                                             onTap: () {
                                               print("details");
                                               print(controller.availableCourses[index].id);
-                                              controller.idCourseClicked=controller.availableCourses[index].id;
+                                              controller.idCourseClicked=controller.availableCourses[index].id!;
                                               for(int i=0;i<controller.availableCourses.length;i++){
                                                 if(controller.idCourseClicked==controller.availableCourses[index].id){
                                                   controller.indexCourseClicked=index;
@@ -305,13 +306,13 @@ class Courses extends GetView<CoursesController> {
                                         ],
                                       ),
                                     ),
-                                    Flexible(
+                                    SizedBox(width: width*0.4,height: 200,
                                       child: FadeInImage.assetNetwork(
                                         placeholder: 'assets/images/loading_gif.gif', // Path to your placeholder image asset
-                                        image: controller.availableCourses[index].teacherImage,
+                                        image: controller.availableCourses[index].teacherImage!,
                                         width: width * 0.45,
                                         height: height * 0.2,
-                                        fit: BoxFit.fill,
+                                        fit: BoxFit.contain,
                                         imageErrorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
                                           // Return a fallback widget or image when the network image fails to load
                                           return Image.asset('assets/images/teacher_logo.png'); // Replace with your fallback image
@@ -319,28 +320,29 @@ class Courses extends GetView<CoursesController> {
                                       ),
                                     ),
 
-                                  ]:[
+                                  ]:
+                                  [
                                     //courses[0].courseVideos![0].uriVideo
-                                    Flexible(
+                                    SizedBox(width: width*0.4,height: 200,
                                       child: FadeInImage.assetNetwork(
                                         placeholder: 'assets/images/loading_gif.gif', // Path to your placeholder image asset
-                                        image: controller.availableCourses[index].teacherImage,
+                                        image: controller.availableCourses[index].teacherImage!,
                                         width: width * 0.45,
                                         height: height * 0.2,
-                                        fit: BoxFit.fill,
+                                        fit: BoxFit.contain,
                                         imageErrorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
                                           // Return a fallback widget or image when the network image fails to load
                                           return Image.asset('assets/images/teacher_logo.png'); // Replace with your fallback image
                                         },
                                       ),
                                     ),
-                                    Flexible(
+                                    SizedBox(width: width*0.4,height: 200,
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.end,
                                         children: [
                                           Text(
                                             controller.availableCourses[index]
-                                                .title,
+                                                .title!,
                                             style: GoogleFonts.readexPro(
                                               fontSize: 18,
                                               fontWeight: FontWeight.w500,
@@ -413,7 +415,7 @@ class Courses extends GetView<CoursesController> {
                                             onTap: () {
                                               print("details");
                                               print(controller.availableCourses[index].id);
-                                              controller.idCourseClicked=controller.availableCourses[index].id;
+                                              controller.idCourseClicked=controller.availableCourses[index].id!;
                                               for(int i=0;i<controller.availableCourses.length;i++){
                                                 if(controller.idCourseClicked==controller.availableCourses[index].id){
                                                   controller.indexCourseClicked=index;

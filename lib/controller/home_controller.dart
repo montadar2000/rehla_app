@@ -12,8 +12,6 @@ import 'package:welcome_screen/controller/material_controller.dart';
 import 'package:welcome_screen/controller/progress.dart';
 import 'package:welcome_screen/main.dart';
 import 'package:welcome_screen/routes/path.dart';
-import 'package:welcome_screen/view/widgets/subscribe_dialog.dart';
-
 import '../Model/userModel.dart';
 import '../constant/app_color.dart';
 class FetchResult {
@@ -28,9 +26,10 @@ class FetchResult {
 
 class HomeController extends GetxController{
 
+
   CoursesController coursesController=Get.find();
   MaterialController materialController =Get.find();
-  ProgressScreenController progressScreenController=Get.find();
+
 
   int homeStatus=0;
   bool isProgress=false;
@@ -43,7 +42,7 @@ late Map<String, dynamic>  jsonMap;
 
 
       try {
-        if(coursesController.internetIssue||progressScreenController.internetIssue||materialController.internetIssue){
+        if(coursesController.internetIssue||materialController.internetIssue){
           throw Exception("Skipping the try block and going to catch.");
         }
         final response = await http.get(
@@ -100,6 +99,10 @@ late Map<String, dynamic>  jsonMap;
 
     if (result.data != null) {
      user= UserModel.fromJson(result.data!);
+     if(!user.active){
+       Get.snackbar(language?"Error":"خطأ", language?"The User is not Active":"المستخدم غير مفعل",backgroundColor: AppColors.appRed);
+       Get.offAllNamed(AppPath.login);
+     }
 
      update();
 

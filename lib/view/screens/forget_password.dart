@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:welcome_screen/controller/forget_controller.dart';
+import 'package:welcome_screen/main.dart';
 import 'package:welcome_screen/routes/path.dart';
 
 import '../../constant/app_color.dart';
@@ -17,9 +18,9 @@ class ForgetPassword extends GetView<ForgetController> {
     return Scaffold(backgroundColor: AppColors.white,
       body: Stack(
         children: [
-          SingleChildScrollView(
-            child: Container(padding: EdgeInsets.all(20),
-              width: width,height: height,
+          Container(padding: EdgeInsets.all(20),
+            width: width,height: height,
+            child: SingleChildScrollView(
               child: SafeArea(bottom: false,right: false,left: false,
                 child: Column(
                   children: [
@@ -33,7 +34,7 @@ class ForgetPassword extends GetView<ForgetController> {
                           Icon(Icons.arrow_back_ios,color: AppColors.black,),
                           SizedBox(width: 5,),
                           Text(
-                            'تسجيل الدخول',
+                            language?"Sign in":'تسجيل الدخول',
                             style: GoogleFonts.readexPro(
                                 fontSize: 18, color: AppColors.black),
                           ),
@@ -53,16 +54,12 @@ class ForgetPassword extends GetView<ForgetController> {
                       ),
                     ),
                     SizedBox(height: height*0.1,),
-                    Row(mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text("هل نسيت كلمة السر؟",style:GoogleFonts.readexPro(fontSize: 27,fontWeight: FontWeight.bold),),
-                      ],
-                    ),
+                    Text(language?"Are You Forget the Password?":"هل نسيت كلمة السر؟",style:GoogleFonts.readexPro(fontSize: 27,fontWeight: FontWeight.bold),textDirection: language?TextDirection.ltr:TextDirection.rtl,),
                     SizedBox(height: height*0.05,),
-                    Text("لاتقلق ! هذا يحدث في بعض الاحيان. الرجاء ادخال رقم الهاتف كي نرسل رمز OTP",style:GoogleFonts.readexPro(fontSize: 16,),textAlign: TextAlign.right,textDirection: TextDirection.rtl),
+                    Text(language?"Don't worry ! This happens sometimes. Please enter your phone number so we can send the OTP code":"لاتقلق ! هذا يحدث في بعض الاحيان. الرجاء ادخال رقم الهاتف كي نرسل رمز OTP",style:GoogleFonts.readexPro(fontSize: 16,),textAlign: TextAlign.center,textDirection:language?TextDirection.ltr: TextDirection.rtl),
                     SizedBox(height: height*0.04,),
                     Container(padding: const EdgeInsets.symmetric(horizontal: 15),
-                      width: width,height: height*0.07,decoration: BoxDecoration(
+                      width: width,decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),color: AppColors.appWhite,
                           border: Border.all(width: 0.2,)
                       ),
@@ -109,7 +106,7 @@ class ForgetPassword extends GetView<ForgetController> {
                           textAlign: TextAlign.right,
                           decoration: InputDecoration(
                               border: InputBorder.none,
-                              hintText: "رقم الهاتف",
+                              hintText: language?"Phone Number":"رقم الهاتف",
                               hintStyle: GoogleFonts.readexPro(fontSize: 15)
                           ),),
                       ),),
@@ -123,7 +120,7 @@ class ForgetPassword extends GetView<ForgetController> {
                           controller.isProgress=false;
                           controller.update();
                           if(controller.statusCode!=200){
-                            Get.snackbar("Error", "something wrong",backgroundColor: AppColors.appRed,snackPosition:
+                            Get.snackbar(language?"Error":"خطأ", language?"something wrong":"حدث خطأ",backgroundColor: AppColors.appRed,snackPosition:
                             SnackPosition.BOTTOM);
 
                           }
@@ -131,9 +128,9 @@ class ForgetPassword extends GetView<ForgetController> {
                           Get.toNamed(AppPath.otp);}
                         }:null,
                         child: Container(padding: EdgeInsets.all(10),
-                          width: width,height: height*0.07,
+                          width: width,
                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: !controller.loginPhoneGood?AppColors.appPurpole2:AppColors.appPurpole4,),
-                          child: Center(child: Text("التالي",style: GoogleFonts.readexPro(fontSize: 20,fontWeight: FontWeight.w600,color: AppColors.white),)),
+                          child: Center(child: Text(language?"Next":"التالي",style: GoogleFonts.readexPro(fontSize: 20,fontWeight: FontWeight.w600,color: AppColors.white),)),
                         )),
                     )
                   ],

@@ -13,34 +13,6 @@ class MaterialController extends GetxController{
 
   bool completeFetched=false;
 
-  List lect=[
-    {
-      "lect_name":"الفيزياء",
-      "mr_name":"الاستاذ: حسن علي",
-      "desc":"هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص  هذا  ",
-      "image":"assets/icons/physics.svg",
-
-    },
-    {
-      "lect_name":"الفيزياء",
-      "mr_name":"الاستاذ: حسن علي",
-      "desc":"هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص  هذا  ",
-      "image":"assets/icons/physics.svg",
-    },
-    {
-      "lect_name":"الفيزياء",
-      "mr_name":"الاستاذ: حسن علي",
-      "desc":"هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص  هذا  ",
-      "image":"assets/icons/physics.svg",
-    },
-    {
-      "lect_name":"الفيزياء",
-      "mr_name":"الاستاذ: حسن علي",
-      "desc":"هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص  هذا  ",
-      "image":"assets/icons/physics.svg",
-    },
-  ];
-
   bool isProgress=false;
   int statusCode=0;
   List<Material> materials=[];
@@ -66,7 +38,7 @@ class MaterialController extends GetxController{
 
         final List<dynamic> jsonData = json.decode(utf8.decode(response.bodyBytes));
         print("material $internetIssue");
-
+        print(jsonData);
         return jsonData.map((item) => Material.fromJson(item)).toList();
       }
       else {
@@ -79,11 +51,12 @@ class MaterialController extends GetxController{
     }
     catch(e){
       internetIssue=true;
+      print("material $internetIssue");
+      print(e);
 
     }
 
-    print("material $internetIssue");
-    return [];
+return[];
 
 
 
@@ -91,45 +64,45 @@ class MaterialController extends GetxController{
 
 
 
-  Future<List<ProgressModel>>fetchProgress(int id) async {
-    ProgressScreenController progressScreenController = Get.find();
-
-final Uri uri = Uri.parse(
-      'https://rehla1-873faca9e6cc.herokuapp.com/api/exam/student/2/examsId/$id'); // Replace with your API endpoint
-
-  try {
-    final Map<String, String> headers = {
-      'Authorization': 'Bearer $accessUserToken',
-      // Replace with your access token
-      // Add any custom headers as needed
-    };
-
-    final response = await http.get(
-      uri,
-      headers: headers,
-    );
-    progressScreenController.statusCode = response.statusCode;
-    if (response.statusCode == 200) {
-      //print(response.bodyBytes);
-
-      var jsonData1 = json.decode(
-          utf8.decode(response.bodyBytes));
-
-
-      //print(jsonData1);
-      print("here");
-      return jsonData1.map((item) => ProgressModel.fromJson(item)).toList();
-    }
-    else {
-
-    }
-  }
-  catch (e) {
-
-
-  }
-  return [];
-}
+//   Future<List<ProgressModel>>fetchProgress(int id) async {
+//     ProgressScreenController progressScreenController = Get.find();
+//
+// final Uri uri = Uri.parse(
+//       'https://rehla1-873faca9e6cc.herokuapp.com/api/exam/student/2/examsId/$id'); // Replace with your API endpoint
+//
+//   try {
+//     final Map<String, String> headers = {
+//       'Authorization': 'Bearer $accessUserToken',
+//       // Replace with your access token
+//       // Add any custom headers as needed
+//     };
+//
+//     final response = await http.get(
+//       uri,
+//       headers: headers,
+//     );
+//     progressScreenController.statusCode = response.statusCode;
+//     if (response.statusCode == 200) {
+//       //print(response.bodyBytes);
+//
+//       var jsonData1 = json.decode(
+//           utf8.decode(response.bodyBytes));
+//
+//
+//       //print(jsonData1);
+//       print("here");
+//       return jsonData1.map((item) => ProgressModel.fromJson(item)).toList();
+//     }
+//     else {
+//
+//     }
+//   }
+//   catch (e) {
+//
+//
+//   }
+//   return [];
+// }
 
 callData()async {
   materials = await fetchMaterials();

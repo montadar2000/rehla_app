@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:welcome_screen/constant/app_color.dart';
+import 'package:welcome_screen/main.dart';
 
 class Chats extends StatelessWidget {
   const Chats({Key? key}) : super(key: key);
@@ -26,7 +27,7 @@ class Chats extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        "الدردشة",
+                        language?"Chat":"الدردشة",
                         style: GoogleFonts.readexPro(fontSize: 22),
                       ),
                       Icon(Icons.arrow_forward_ios)

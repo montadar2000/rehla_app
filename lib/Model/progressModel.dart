@@ -1,6 +1,6 @@
 class ProgressModel {
-  final List<ProgressItem> data;
-  final double progress;
+  List<ExamData> data;
+  String progress;
 
   ProgressModel({
     required this.data,
@@ -8,34 +8,30 @@ class ProgressModel {
   });
 
   factory ProgressModel.fromJson(Map<String, dynamic> json) {
-    final data = json['data'] as List<dynamic>;
-    final progress = json['progress'] as double;
-
-    List<ProgressItem> progressList = data.map((item) {
-      return ProgressItem.fromJson(item);
-    }).toList();
+    var dataList = json['data'] as List;
+    List<ExamData> examDataList = dataList.map((item) => ExamData.fromJson(item)).toList();
 
     return ProgressModel(
-      data: progressList,
-      progress: progress,
+      data: examDataList,
+      progress: json['progress'].toString(),
     );
   }
 }
 
-class ProgressItem {
-  final int tagId;
-  final int examsId;
-  final int progressId;
-  final String attachment;
-  final int createdAt;
-  final String examName;
-  final int expire;
-  final double degree;
-  final String note;
-  final String studentAttachment;
-  final int userId;
+class ExamData {
+  int tagId;
+  int examsId;
+  int progressId;
+  String attachment;
+  int createdAt;
+  String examName;
+  int expire;
+  double degree;
+  String note;
+  String studentAttachment;
+  int userId;
 
-  ProgressItem({
+  ExamData({
     required this.tagId,
     required this.examsId,
     required this.progressId,
@@ -49,19 +45,19 @@ class ProgressItem {
     required this.userId,
   });
 
-  factory ProgressItem.fromJson(Map<String, dynamic> json) {
-    return ProgressItem(
-      tagId: json['tag_id'] as int,
-      examsId: json['exams_id'] as int,
-      progressId: json['progress_id'] as int,
-      attachment: json['attachment'] as String,
-      createdAt: json['created_at'] as int,
-      examName: json['exam_name'] as String,
-      expire: json['expire'] as int,
-      degree: json['degree'] as double,
-      note: json['note'] as String,
-      studentAttachment: json['student_attachment'] as String,
-      userId: json['user_id'] as int,
+  factory ExamData.fromJson(Map<String, dynamic> json) {
+    return ExamData(
+      tagId: json['tag_id'],
+      examsId: json['exams_id'],
+      progressId: json['progress_id'],
+      attachment: json['attachment'],
+      createdAt: json['created_at'],
+      examName: json['exam_name'],
+      expire: json['expire'],
+      degree: json['degree'],
+      note: json['note'],
+      studentAttachment: json['student_attachment'],
+      userId: json['user_id'],
     );
   }
 }

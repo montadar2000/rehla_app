@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:welcome_screen/controller/privact_controller.dart';
+import 'package:welcome_screen/main.dart';
 
 import '../../constant/app_color.dart';
 import '../widgets/progress_dialog.dart';
@@ -38,7 +39,7 @@ class PrivacyScreen extends GetView<PrivacyController> {
                           child: Row(
                             children: [
                               Text(
-                                "الاعدادات",
+                                language?"Settings":"الاعدادات",
                                 style: GoogleFonts.readexPro(fontSize: 20),
                               ),
                               SizedBox(
@@ -54,7 +55,7 @@ class PrivacyScreen extends GetView<PrivacyController> {
                       height: height * 0.1,
                     ),
                     Text(
-                      "سياسة الخصوصية",
+                      language?"Privacy":"سياسة الخصوصية",
                       style: GoogleFonts.readexPro(
                           fontSize: 25, fontWeight: FontWeight.w600),
                     ),

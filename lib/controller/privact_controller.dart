@@ -29,6 +29,7 @@ class PrivacyController extends GetxController{
      }
      else
      {
+
        isProgress=false;
        update();
 

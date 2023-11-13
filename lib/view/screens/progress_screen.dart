@@ -3,9 +3,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:welcome_screen/controller/progress.dart';
+import 'package:welcome_screen/main.dart';
 import 'package:welcome_screen/routes/path.dart';
+import 'package:welcome_screen/view/screens/progress_details_screen.dart';
 
 import '../../constant/app_color.dart';
+import '../widgets/progress_dialog.dart';
 
 class ProgressScreen extends GetView<ProgressScreenController> {
   const ProgressScreen({Key? key}) : super(key: key);
@@ -21,6 +24,7 @@ class ProgressScreen extends GetView<ProgressScreenController> {
       child: SingleChildScrollView(
         child: Container(
           width: width,
+          height: height,
           padding: EdgeInsets.only(
               right: 10, left: 10, top: 10, bottom: height * 0.1),
           child: Column(
@@ -33,14 +37,14 @@ class ProgressScreen extends GetView<ProgressScreenController> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      "التقدم والدرجات",
+                      language?"Progress":"التقدم والدرجات",
                       style: GoogleFonts.readexPro(fontSize: 20),
                     ),
                   ],
                 ),
               ),
              SizedBox(height: height*0.05,),
-             ...List.generate(controller.lect.length, (index) =>
+             ...List.generate(controller.coursesController.availableCourses.length, (index) =>
                  Container(margin: EdgeInsets.symmetric(vertical: 10),
                  width: width,padding: EdgeInsets.all(20),
                  decoration: BoxDecoration(color: AppColors.appWhite,
@@ -55,31 +59,63 @@ class ProgressScreen extends GetView<ProgressScreenController> {
                  ),
                  child: Stack(
                    children: [
-                     Positioned(top:0,right: 0,left: 0,bottom: 0,
-                         child: SvgPicture.asset(controller.lect[index]['image'])),
+                     // Positioned(top:0,right: 0,left: 0,bottom: 0,
+                     //     child: SvgPicture.asset(controller.lect[index]['image'])),
                      Column(
                        children: [
-                         Row(mainAxisAlignment: MainAxisAlignment.end,
+                         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                           crossAxisAlignment: CrossAxisAlignment.start,
                            children: [
-                             Text(controller.lect[index]['lect_name'],style: GoogleFonts.readexPro(fontSize: 22,fontWeight: FontWeight.w500),),
+                             Flexible(child: Container(width: width*0.4,height: 100,
+                               child:  FadeInImage.assetNetwork(
+                                 placeholder: 'assets/images/loading_gif.gif', // Path to your placeholder image asset
+                                 image: controller.coursesController.availableCourses[index].teacherImage!,
+                                 width: width * 0.45,
+                                 height: height * 0.2,
+                                 fit: BoxFit.contain,
+                                 imageErrorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                   // Return a fallback widget or image when the network image fails to load
+                                   return Image.asset('assets/images/teacher_logo.png'); // Replace with your fallback image
+                                 },
+                               ),
+                             )),
+                             Flexible(flex: 2,child: Column(
+                               crossAxisAlignment: CrossAxisAlignment.end,
+
+                               children: [
+                                 Text(controller.coursesController.availableCourses[index].title!,style: GoogleFonts.readexPro(fontSize: 23,fontWeight: FontWeight.w500),overflow: TextOverflow.ellipsis,textDirection: TextDirection.rtl,
+                                   maxLines: 2,),
+                                 SizedBox(height: 5,),
+                                 Text(language?"lect. ":"الاستاذ: "+controller.coursesController.availableCourses[index].teacherName!,style: GoogleFonts.readexPro(fontSize: 20,fontWeight: FontWeight.w500),overflow: TextOverflow.ellipsis,
+                                 textDirection: language?TextDirection.ltr:TextDirection.rtl,maxLines: 2,),
+
+                               ],
+                             )),
                            ],
                          ),
                          SizedBox(height: 10,),
-                         Row(mainAxisAlignment: MainAxisAlignment.end,
-                           children: [
-                             Text(controller.lect[index]['mr_name'],style: GoogleFonts.readexPro(fontSize: 20,fontWeight: FontWeight.w500),),
-                           ],
-                         ),
-                         SizedBox(height: 10,),
-                         Text(controller.lect[index]['desc'],
+                         Text(controller.coursesController.availableCourses[index].description!,
                            style: GoogleFonts.readexPro(fontSize: 18,fontWeight: FontWeight.w300),textDirection: TextDirection.rtl,maxLines: 3,
                            overflow: TextOverflow.ellipsis,),
                          SizedBox(height: 10,),
                          GestureDetector(
-                           onTap: ()  {
+                           onTap: ()  async {
+                             if(!controller.coursesController.availableCourses[index].buy!){
+                               Get.snackbar(language?"Error":"خطا",language?"please subscribe with course first":"الرجاء الاشتراك في الدورة اولا",snackPosition: SnackPosition.TOP,
+                               backgroundColor: AppColors.appRed);
+                             }
+                             else{
+                               controller.coursesController.idExamClickedForProgress=controller.coursesController.availableCourses[index].exam![0].examId!;
+                               print(controller.coursesController.idExamClickedForProgress);
+                               controller.coursesController.indexCourseClickedForProgress=index;
+                               controller.isProgress=true;
+                               controller.update();
+                               await controller.fetchProgress();
+                               //controller.isProgress=false;
+                               controller.update();
+                               Get.toNamed(AppPath.progressDetailsScreen);
 
-                             print("progress");
-                             Get.toNamed(AppPath.progressDetailsScreen);
+                             }
 
                            },
                            child: Container(
@@ -93,7 +129,7 @@ class ProgressScreen extends GetView<ProgressScreenController> {
                                mainAxisAlignment: MainAxisAlignment.center,
                                children: [
                                  Text(
-                                   "عرض مستوى تقدمك في هذه الدورة",
+                                   language?"Show Your Progress":"عرض مستوى تقدمك في هذه الدورة",
                                    style: GoogleFonts.readexPro(
                                        fontSize: 17,
                                        fontWeight: FontWeight.w400,

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:welcome_screen/controller/exam_controller.dart';
 import 'package:welcome_screen/controller/exam_status_controller.dart';
+import 'package:welcome_screen/main.dart';
 
 import '../../constant/app_color.dart';
 import '../widgets/progress_dialog.dart';
@@ -38,7 +39,7 @@ ExamController examController=Get.find();
                           size: 25,
                         ),
                         Text(
-                          "الاختبار",
+                          language?"Exam":"الاختبار",
                           style: GoogleFonts.readexPro(fontSize: 20),
                         )
                       ],
@@ -51,9 +52,9 @@ ExamController examController=Get.find();
                         decoration: BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/send_success.png'))),
                       ),
                       SizedBox(height: height*0.07,),
-                      Text('تم ارسال اجاباتك ! ',style: GoogleFonts.readexPro(fontSize: 25,fontWeight: FontWeight.w500),textDirection: TextDirection.rtl,),
+                      Text(language?"your Answer sent successfully ! ":'تم ارسال اجاباتك ! ',style: GoogleFonts.readexPro(fontSize: 25,fontWeight: FontWeight.w500),textDirection:language?TextDirection.ltr: TextDirection.rtl,),
                       SizedBox(height: height*0.02,),
-                      Text('يمكنك ايجاد درجة الامتحان في ملفك الشخصي بعد تصحيح الاجابات من قبل مشرف المادة',style: GoogleFonts.readexPro(fontSize: 16,fontWeight: FontWeight.w400),textDirection: TextDirection.rtl,
+                      Text(language?"You can find the exam score in your personal file after the answers are corrected by the subject supervisor":'يمكنك ايجاد درجة الامتحان في ملفك الشخصي بعد تصحيح الاجابات من قبل مشرف المادة',style: GoogleFonts.readexPro(fontSize: 16,fontWeight: FontWeight.w400),textDirection: TextDirection.rtl,
                         textAlign: TextAlign.center,),
                       SizedBox(height: height*0.05,),
                       GestureDetector(
@@ -74,7 +75,7 @@ ExamController examController=Get.find();
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "العودة الى صفحة الدورة",
+                                language?"back to course":"العودة الى صفحة الدورة",
                                 style: GoogleFonts.readexPro(
                                     fontSize: 17,
                                     fontWeight: FontWeight.w500,
@@ -100,9 +101,9 @@ ExamController examController=Get.find();
                         decoration: BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/send_fail.png'))),
                       ),
                       SizedBox(height: height*0.07,),
-                      Text('حدث خطأ',style: GoogleFonts.readexPro(fontSize: 25,fontWeight: FontWeight.w500),textDirection: TextDirection.rtl,),
+                      Text(language?"Error":'حدث خطأ',style: GoogleFonts.readexPro(fontSize: 25,fontWeight: FontWeight.w500),textDirection: TextDirection.rtl,),
                       SizedBox(height: height*0.02,),
-                      Text(' يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى. في حال استمرار المشكلة، يُرجى التواصل مع فريق الدعم او مشرف المادة',style: GoogleFonts.readexPro(fontSize: 16,fontWeight: FontWeight.w400),textDirection: TextDirection.rtl,
+                      Text(language?"Please check your internet connection and try again. If the problem persists, please contact the support team or the subject supervisor":' يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى. في حال استمرار المشكلة، يُرجى التواصل مع فريق الدعم او مشرف المادة',style: GoogleFonts.readexPro(fontSize: 16,fontWeight: FontWeight.w400),textDirection: TextDirection.rtl,
                         textAlign: TextAlign.center,),
                       SizedBox(height: height*0.05,),
                       GestureDetector(
@@ -122,7 +123,7 @@ ExamController examController=Get.find();
                             examController.update();
                           }
                           else{
-                            Get.snackbar("Error", "there is something Wrong please try again later",
+                            Get.snackbar(language?"Error":"خطأ", language?"there is something Wrong please try again later":"حدث خطأ يرجى المحاولة لاحقا",
                                 snackPosition: SnackPosition.BOTTOM,backgroundColor: AppColors.appRed);
 
                           }
@@ -139,7 +140,7 @@ ExamController examController=Get.find();
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "اعادة المحاولة",
+                                language?"Try Again":"اعادة المحاولة",
                                 style: GoogleFonts.readexPro(
                                     fontSize: 17,
                                     fontWeight: FontWeight.w400,

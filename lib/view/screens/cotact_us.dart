@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:welcome_screen/constant/app_ststic_var.dart';
 import 'package:welcome_screen/controller/contact_us_controller.dart';
 import 'package:welcome_screen/controller/home_controller.dart';
+import 'package:welcome_screen/main.dart';
 
 import '../../constant/app_color.dart';
 import '../widgets/progress_dialog.dart';
@@ -28,7 +30,7 @@ HomeController homeController=Get.find();
                     GestureDetector(onTap: (){Get.back();},
                       child: Row(
                         children: [
-                          Text("الاعدادات",style: GoogleFonts.readexPro(fontSize: 20),),
+                          Text(language?"Settings":"الاعدادات",style: GoogleFonts.readexPro(fontSize: 20),),
                           SizedBox(width: 10,),
                           Icon(Icons.arrow_forward_ios)
 
@@ -40,7 +42,7 @@ HomeController homeController=Get.find();
                   ],
                 ),
                 SizedBox(height: height*0.1,),
-                Text("تواصل مع دعم تطبيق رحلة",style: GoogleFonts.readexPro(fontSize: 21,fontWeight: FontWeight.w600),),
+                Text(language?"Contact With Rehla Support":"تواصل مع دعم تطبيق رحلة",style: GoogleFonts.readexPro(fontSize: 21,fontWeight: FontWeight.w600),),
                 SizedBox(height: height*0.05,),
                 Container(padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 2),
                   width: width,decoration: BoxDecoration(
@@ -53,7 +55,7 @@ HomeController homeController=Get.find();
                       textAlign: TextAlign.right,maxLines: 1,readOnly: true,
                       decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: "الاسم الكامل",
+                          hintText: language?"Full Name":"الاسم الكامل",
                           hintStyle: GoogleFonts.readexPro(fontSize: 15),
                       ),),
                   ),),
@@ -69,7 +71,7 @@ HomeController homeController=Get.find();
                       textAlign: TextAlign.right,
                       decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: "رقم الهاتف",
+                          hintText: language?"Phone Number":"رقم الهاتف",
                           hintStyle: GoogleFonts.readexPro(fontSize: 15)
                       ),),
                   ),),
@@ -87,7 +89,7 @@ HomeController homeController=Get.find();
                       },
                       decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: "الرسالة او الشكوى",
+                          hintText: language?"Message":"الرسالة او الشكوى",
                           hintStyle: GoogleFonts.readexPro(fontSize: 15)
                       ),),
                   ),),
@@ -132,7 +134,7 @@ HomeController homeController=Get.find();
                         ),
                         child: Row(mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("الغاء ",style: GoogleFonts.readexPro(fontSize: 17,fontWeight: FontWeight.w600),),
+                            Text(language?"Cancel":"الغاء ",style: GoogleFonts.readexPro(fontSize: 17,fontWeight: FontWeight.w600),),
 
                             SvgPicture.asset('assets/icons/cancel.svg',)
                           ],
@@ -152,7 +154,7 @@ HomeController homeController=Get.find();
                         ),
                         child: Row(mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("ارسال ",style: GoogleFonts.readexPro(fontSize: 17,fontWeight: FontWeight.w600,color: AppColors.white),),
+                            Text(language?"Send":"ارسال ",style: GoogleFonts.readexPro(fontSize: 17,fontWeight: FontWeight.w600,color: AppColors.white),),
 
                             SvgPicture.asset('assets/icons/email.svg')
                           ],
@@ -161,7 +163,7 @@ HomeController homeController=Get.find();
                       ),
                       onTap: () async {print('send');
                         if(controller.message.length==0){
-                          Get.snackbar("Error", "Please enter the message first",
+                          Get.snackbar(language?"Error":"خطأ", language?"Please enter the message first":"الرجاء كتابة رسالة اولا",
                               backgroundColor: AppColors.appRed,
                               snackPosition: SnackPosition.BOTTOM);
                         }
@@ -170,14 +172,14 @@ HomeController homeController=Get.find();
                             controller.isProgress=true;
                             controller.update();
                             if(await controller.send_message()==200){
-                              Get.snackbar("Success", "Your message send successfully, please wait for our feedback",
+                              Get.snackbar(language?"Success":"نجح الارسال",language? "Your message send successfully, please wait for our feedback":"تم ارسال الرسالة بنجاح، انتظر الرد من قبل الدعم",
                                   backgroundColor: AppColors.green,
                                   snackPosition: SnackPosition.BOTTOM);
                               controller.isProgress=false;
                               controller.update();
                             }
                             else{
-                              Get.snackbar("Error", "Your message didn't sent, please try again",
+                              Get.snackbar(language?"Error":"خطأ",language? "Your message didn't sent, please try again":"تعذر الارسال، الرجاء اعادة المحاولة",
                                   backgroundColor: AppColors.red,
                                   snackPosition: SnackPosition.BOTTOM);
                               controller.isProgress=false;
@@ -212,7 +214,7 @@ HomeController homeController=Get.find();
                       children: [
                         SvgPicture.asset('assets/icons/call.svg',color: AppColors.black,width: 25,),
                         SizedBox(width: 10,),
-                        Text("+9647710000000",style: GoogleFonts.readexPro(fontWeight: FontWeight.w500,fontSize: 16),)
+                        Text(AppStaticVar.whatsappNumberConnect,style: GoogleFonts.readexPro(fontWeight: FontWeight.w500,fontSize: 16),)
                       ],
                     ),
                     SizedBox(height: height*0.02,),

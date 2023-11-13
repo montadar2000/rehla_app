@@ -11,6 +11,7 @@ class ForgetController extends GetxController{
     data: {
       "phone":phoneFiled
     });
+    print(statusCode);
   }
 
 }

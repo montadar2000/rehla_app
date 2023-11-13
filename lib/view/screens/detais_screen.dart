@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:welcome_screen/constant/app_color.dart';
+import 'package:welcome_screen/constant/app_ststic_var.dart';
 import 'package:welcome_screen/controller/courses_controller.dart';
 import 'package:welcome_screen/controller/details_contriller.dart';
 import 'package:welcome_screen/main.dart';
@@ -27,6 +29,7 @@ class DetailsScreen extends GetView<DetailsController> {
         child: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.only(left: 20, right: 20, bottom: 30),
+
             width: width,
             child: Column(
               children: [
@@ -54,7 +57,7 @@ class DetailsScreen extends GetView<DetailsController> {
                 ),
                 Container(
                   width: width,
-                  height:controller.subscribe?height*0.3:height*0.4,
+                  height:height<500?height*0.6:height*0.3,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: AppColors.appWhite,
@@ -74,7 +77,7 @@ class DetailsScreen extends GetView<DetailsController> {
                         flex: 2,
                         child: Container(
                           width: width,
-                          height: height * 0.2,
+                          height: height<500?height * 0.35:height*0.2,
                           padding: const EdgeInsets.all(10),
                           decoration:  BoxDecoration(
                               image: DecorationImage(
@@ -88,7 +91,7 @@ class DetailsScreen extends GetView<DetailsController> {
                                 mainAxisAlignment:language?MainAxisAlignment.start: MainAxisAlignment.end,
                                 children: [
                                   Text(
-                                    coursesController.availableCourses[coursesController.indexCourseClicked].title,
+                                    coursesController.availableCourses[coursesController.indexCourseClicked].title!,
                                     style: GoogleFonts.readexPro(
                                         fontSize: 30,
                                         color: AppColors.white,
@@ -97,7 +100,7 @@ class DetailsScreen extends GetView<DetailsController> {
                                 ],
                               ),
                               SizedBox(
-                                height: height * 0.02,
+                                height:height<500?height * 0.03: height * 0.02,
                               ),
                               Row(
                                 mainAxisAlignment:language?MainAxisAlignment.start: MainAxisAlignment.end,
@@ -333,7 +336,7 @@ class DetailsScreen extends GetView<DetailsController> {
                 SizedBox(
                   height: height * 0.04,
                 ),
-                GetBuilder<DetailsController>(builder: (controller)=>controller.lectList?controller.subscribe?Column(
+                GetBuilder<DetailsController>(builder: (controller)=>controller.lectList?coursesController.availableCourses[coursesController.indexCourseClicked].buy!?Column(
                   children: [
                     Container(
                       width: width,
@@ -422,9 +425,7 @@ class DetailsScreen extends GetView<DetailsController> {
 
                                   Get.toNamed(AppPath.prepareScreen);},
                               ),
-                              controller.chemistryLectures.length == index + 1
-                                  ? Container()
-                                  : const Divider()
+
                             ],
                           ),
                         ),
@@ -434,10 +435,24 @@ class DetailsScreen extends GetView<DetailsController> {
                 ):Column(
                   children: [
                     SizedBox(height: height*0.1,),
-                    Text(language?"please subscribe first":"يرجى الاشتراك اولا",style: GoogleFonts.readexPro(fontSize: 26,fontWeight: FontWeight.w500),),
+                    TextButton(onPressed: () async {
+                      try {
+                        Uri url = Uri.parse('https://wa.me/${AppStaticVar.whatsappNumberConnect}'); // Replace with your desired URL
+                        if (!await launchUrl(url)) {
+                          print('Could not launch $url');
+                        }
+                      } catch (e) {
+                        print('Error: $e');
+                        // Handle the error, e.g., show a message to the user
+                      }
+
+
+                    },
+                        child: Text(language?"click here to subscribe":"اضغط هنا للاشتراك",style: GoogleFonts.readexPro(fontSize: 22,fontWeight: FontWeight.w500,
+                        color: AppColors.black),)),
                   ],
                 ):
-                controller.subscribe?Column(
+                coursesController.availableCourses[coursesController.indexCourseClicked].buy!?Column(
                   children: [
                     Container(
                       width: width,
@@ -461,6 +476,7 @@ class DetailsScreen extends GetView<DetailsController> {
                             children: [
                               GestureDetector(
                                 child: Container(
+
                                   width: width,
                                   padding: const EdgeInsets.all(20),
                                   child: Row(
@@ -512,8 +528,21 @@ class DetailsScreen extends GetView<DetailsController> {
                 ):Column(
                   children: [
                     SizedBox(height: height*0.1,),
-                    Text(language?"please subscribe first":"يرجى الاشتراك اولا",style: GoogleFonts.readexPro(fontSize: 26,fontWeight: FontWeight.w500),),
-                  ],
+                    TextButton(onPressed: () async {
+                      try {
+                        Uri url = Uri.parse('https://wa.me/${AppStaticVar.whatsappNumberConnect}'); // Replace with your desired URL
+                        if (!await launchUrl(url)) {
+                          print('Could not launch $url');
+                        }
+                      } catch (e) {
+                        print('Error: $e');
+                        // Handle the error, e.g., show a message to the user
+                      }
+
+
+                    },
+                        child: Text(language?"click here to subscribe":"اضغط هنا للاشتراك",style: GoogleFonts.readexPro(fontSize: 22,fontWeight: FontWeight.w500,
+                            color: AppColors.black),)),],
                 )
                 )
 

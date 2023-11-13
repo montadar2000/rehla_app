@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:welcome_screen/constant/app_color.dart';
 import 'package:welcome_screen/controller/material_controller.dart';
+import 'package:welcome_screen/main.dart';
 import 'package:welcome_screen/routes/path.dart';
-import 'package:welcome_screen/view/widgets/subscribe_dialog.dart';
 
 
 
@@ -31,7 +31,7 @@ class MaterialScreen extends GetView<MaterialController> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    "المواد التعليمية",
+                    language?"Materials":"المواد التعليمية",
                     style: GoogleFonts.readexPro(fontSize: 20),
                   ),
                 ],
@@ -52,24 +52,38 @@ class MaterialScreen extends GetView<MaterialController> {
                   child: Column(
                     children: [
                       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+
                           Flexible(child: Container(width: width*0.4,height: 100,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(image: NetworkImage(
-                                  controller.materials[index].image
-                              ),fit: BoxFit.fill)
+                            child:  FadeInImage.assetNetwork(
+                              placeholder: 'assets/images/loading_gif.gif', // Path to your placeholder image asset
+                              image: controller.materials[index].teacherImage!,
+                              width: width * 0.45,
+                              height: height * 0.2,
+                              fit: BoxFit.contain,
+                              imageErrorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                // Return a fallback widget or image when the network image fails to load
+                                return Image.asset('assets/images/teacher_logo.png'); // Replace with your fallback image
+                              },
                             ),
                           )),
-                          Flexible(flex: 2,child: Text(controller.materials[index].title,style: GoogleFonts.readexPro(fontSize: 23,fontWeight: FontWeight.w500),overflow: TextOverflow.ellipsis,textDirection: TextDirection.rtl,
-                          maxLines: 2,)),
+
+                          Flexible(flex: 2,child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+
+                            children: [
+                              Text(controller.materials[index].title,style: GoogleFonts.readexPro(fontSize: 23,fontWeight: FontWeight.w500),overflow: TextOverflow.ellipsis,textDirection: TextDirection.rtl,
+                              maxLines: 2,),
+                              SizedBox(height: 5,),
+                              Text(controller.materials[index].teacherName,style: GoogleFonts.readexPro(fontSize: 20,fontWeight: FontWeight.w500),overflow: TextOverflow.ellipsis,),
+
+                            ],
+                          )),
                         ],
                       ),
 
-                      Row(mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(controller.materials[index].teacherName,style: GoogleFonts.readexPro(fontSize: 20,fontWeight: FontWeight.w500),overflow: TextOverflow.ellipsis,),
-                        ],
-                      ),
+
                       SizedBox(height: 10,),
                       Text(controller.materials[index].description,
                         style: GoogleFonts.readexPro(fontSize: 18,fontWeight: FontWeight.w300),textDirection: TextDirection.rtl,maxLines: 3,
@@ -98,9 +112,9 @@ class MaterialScreen extends GetView<MaterialController> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "تحميل المواد الخاصة بالدورة",
+                                language?"Download Material of the Course":"تحميل المواد الخاصة بالدورة",
                                 style: GoogleFonts.readexPro(
-                                    fontSize: 17,
+                                    fontSize: 15,
                                     fontWeight: FontWeight.w400,
                                     color: AppColors.white),
                                 textDirection: TextDirection.rtl,
@@ -110,7 +124,7 @@ class MaterialScreen extends GetView<MaterialController> {
                               ),
                               SvgPicture.asset(
                                 'assets/icons/pdf.svg',
-                                width: 25,color: AppColors.white,
+                                width: 20,color: AppColors.white,
                               )
                             ],
                           ),

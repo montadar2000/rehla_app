@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:welcome_screen/controller/material_controller.dart';
+import 'package:welcome_screen/main.dart';
 
 import '../widgets/pdf_reader.dart';
 
@@ -36,7 +37,7 @@ class MaterialDetailScreen extends GetView<MaterialController> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        "المواد التعليمية",
+                        language?"Materials":"المواد التعليمية",
                         style: GoogleFonts.readexPro(fontSize: 20),
                       ),
                       SizedBox(
@@ -48,11 +49,17 @@ class MaterialDetailScreen extends GetView<MaterialController> {
                 ),
                 SizedBox(height: height*0.05,),
                 Container(width: width,
-                  child: Text(materialController.materials[materialController.indexMaterialClicked].title,style: GoogleFonts.readexPro(fontSize: 22,fontWeight: FontWeight.w500),
-                  textAlign: TextAlign.end,maxLines: 2,overflow: TextOverflow.ellipsis,),
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(materialController.materials[materialController.indexMaterialClicked].title,style: GoogleFonts.readexPro(fontSize: 22,fontWeight: FontWeight.w500),
+                      textAlign: TextAlign.end,maxLines: 2,overflow: TextOverflow.ellipsis,),
+                      SizedBox(height: 5,),
+                      Text(language?"Lect. ":"الاستاذ : "+materialController.materials[materialController.indexMaterialClicked].teacherName,style: GoogleFonts.readexPro(fontSize: 22,fontWeight: FontWeight.w500),textAlign: TextAlign.end,maxLines: 2,overflow: TextOverflow.ellipsis,
+                      textDirection: language?TextDirection.ltr:TextDirection.rtl,),
+
+                    ],
+                  ),
                 ),
-                SizedBox(height: 10,),
-                Text(materialController.materials[materialController.indexMaterialClicked].teacherName,style: GoogleFonts.readexPro(fontSize: 22,fontWeight: FontWeight.w500),textAlign: TextAlign.end,maxLines: 2,overflow: TextOverflow.ellipsis, ),
                 SizedBox(height: height*0.02,),
                 ...List.generate(materialController.materials[materialController.indexMaterialClicked].pdf.length, (index) => Column(
                   children: [
@@ -60,7 +67,7 @@ class MaterialDetailScreen extends GetView<MaterialController> {
 
                       Navigator.of(context).push(MaterialPageRoute(builder: (context){
 
-                        return PDFViewerCachedFromUrl(url: materialController.materials[materialController.indexMaterialClicked].pdf[index],);
+                        return PDFViewerCachedFromUrl(url: materialController.materials[materialController.indexMaterialClicked].pdf[index]['uri'],);
                       }));
 
                     },
@@ -76,7 +83,9 @@ class MaterialDetailScreen extends GetView<MaterialController> {
                           children: [
                             SvgPicture.asset("assets/icons/download2.svg",width: 25,),
                             SizedBox(width: 15,),
-                            Text("الفصل ${index+1}",style: GoogleFonts.readexPro(fontSize: 20,fontWeight: FontWeight.w500),)
+                            Text(language?"Chapter ${index+1}":"الفصل ${index+1}",style: GoogleFonts.readexPro(fontSize: 20,fontWeight: FontWeight.w500),
+                              textDirection: language?TextDirection.ltr:TextDirection.rtl,
+                            )
                           ],
                         ),
                       ),
