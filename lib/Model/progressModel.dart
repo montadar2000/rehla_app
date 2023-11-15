@@ -8,12 +8,13 @@ class ProgressModel {
   });
 
   factory ProgressModel.fromJson(Map<String, dynamic> json) {
-    var dataList = json['data'] as List;
-    List<ExamData> examDataList = dataList.map((item) => ExamData.fromJson(item)).toList();
 
+    var dataList = json['data'] as List;
+
+    List<ExamData> examDataList = dataList.map((item) => ExamData.fromJson(item)).toList();
     return ProgressModel(
       data: examDataList,
-      progress: json['progress'].toString(),
+      progress: json['progress'],
     );
   }
 }
@@ -46,6 +47,7 @@ class ExamData {
   });
 
   factory ExamData.fromJson(Map<String, dynamic> json) {
+
     return ExamData(
       tagId: json['tag_id'],
       examsId: json['exams_id'],
@@ -55,7 +57,7 @@ class ExamData {
       examName: json['exam_name'],
       expire: json['expire'],
       degree: json['degree'],
-      note: json['note'],
+      note: json['note']??"",
       studentAttachment: json['student_attachment'],
       userId: json['user_id'],
     );

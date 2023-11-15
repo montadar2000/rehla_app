@@ -36,18 +36,24 @@ class ProgressScreenController extends GetxController{
         internetIssue=false;
 
         final responseJson = json.decode(utf8.decode(response.bodyBytes));
-        print("test3");
+
+        responseJson['progress']=responseJson['progress'].toString();
+          print(responseJson['progress']);
+
         final examResponse = ProgressModel.fromJson(responseJson);
+
         print("test2");
 
         data.assignAll(examResponse.data);
-        progress = examResponse.progress;
+        progress = examResponse.progress.toString();
         print(progress);
         if(progress=="NaN"){
           progress='0.0';
         }else
           {
-            progress=progress.toString();
+            var x=double.parse(progress);
+            x=(x * 1000).round() / 1000;
+            progress=x.toString();
 
           }
 

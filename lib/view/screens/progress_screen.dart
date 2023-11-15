@@ -110,6 +110,7 @@ class ProgressScreen extends GetView<ProgressScreenController> {
                                controller.coursesController.indexCourseClickedForProgress=index;
                                controller.isProgress=true;
                                controller.update();
+                               print("join");
                                await controller.fetchProgress();
                                //controller.isProgress=false;
                                controller.update();

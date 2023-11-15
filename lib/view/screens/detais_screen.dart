@@ -454,7 +454,7 @@ class DetailsScreen extends GetView<DetailsController> {
                 ):
                 coursesController.availableCourses[coursesController.indexCourseClicked].buy!?Column(
                   children: [
-                    Container(
+                    controller.list2.length!=0?Container(
                       width: width,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
@@ -515,14 +515,14 @@ class DetailsScreen extends GetView<DetailsController> {
 
                                   Get.toNamed(AppPath.examScreen);},
                               ),
-                              controller.chemistryLectures.length == index + 1
+                              controller.list2.length == index + 1
                                   ? Container()
                                   : const Divider()
                             ],
                           ),
                         ),
                       ]),
-                    ),
+                    ):Container(),
 
                   ],
                 ):Column(
