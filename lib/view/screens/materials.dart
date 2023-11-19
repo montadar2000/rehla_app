@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:welcome_screen/constant/app_color.dart';
+import 'package:welcome_screen/controller/courses_controller.dart';
 import 'package:welcome_screen/controller/material_controller.dart';
 import 'package:welcome_screen/main.dart';
 import 'package:welcome_screen/routes/path.dart';
@@ -37,7 +38,9 @@ class MaterialScreen extends GetView<MaterialController> {
                 ],
               ),
               SizedBox(height: height*0.05,),
-              ...List.generate(controller.materials.length, (index) => Container(margin: EdgeInsets.symmetric(vertical: 10),
+              ...List.generate(controller.materials.length, (index) {
+
+                return Container(margin: EdgeInsets.symmetric(vertical: 10),
                   width: width,padding: EdgeInsets.all(20),
                   decoration: BoxDecoration(color: AppColors.appWhite,
                       borderRadius: BorderRadius.circular(10),
@@ -92,12 +95,33 @@ class MaterialScreen extends GetView<MaterialController> {
                       GestureDetector(
                         onTap: ()  {
                           controller.indexMaterialClicked=index;
+                          CoursesController courseController=Get.find();
+                          int searchCourseIndex=0;bool joinFlag=false;
+                          for(int i=0;i<controller.materials.length;i++){
+                            if(controller.materials[index].id==courseController.availableCourses[i].id){
+                              searchCourseIndex=i;
+                              joinFlag=true;
+                              break;
+                            }
+                          }
+                          if(joinFlag){
+                            if(courseController.availableCourses[searchCourseIndex].buy!){
+                              Get.toNamed(AppPath.materialDetailScreen);
+
+                            }else{
+                              Get.snackbar(language?"Error":"خطا",language?"please subscribe with course first":"الرجاء الاشتراك في الدورة اولا",snackPosition: SnackPosition.TOP,
+                                  backgroundColor: AppColors.appRed);
+                            }
+                          }
+                          else{
+                            Get.snackbar(language?"Error":"خطا","",snackPosition: SnackPosition.TOP,
+                                backgroundColor: AppColors.appRed);
+                          }
                           print("download");
                           // showDialog<String>(
                           //     context: context,
                           //     builder: (BuildContext context) => SubscribeDialog(),
                           // );
-                          Get.toNamed(AppPath.materialDetailScreen);
 
 
                         },
@@ -133,7 +157,8 @@ class MaterialScreen extends GetView<MaterialController> {
                     ],
 
                   )
-              ))
+              );
+              })
             ],
           ),
         ),

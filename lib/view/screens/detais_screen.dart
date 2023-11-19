@@ -336,7 +336,9 @@ class DetailsScreen extends GetView<DetailsController> {
                 SizedBox(
                   height: height * 0.04,
                 ),
-                GetBuilder<DetailsController>(builder: (controller)=>controller.lectList?coursesController.availableCourses[coursesController.indexCourseClicked].buy!?Column(
+                GetBuilder<DetailsController>(builder: (controller)=>
+                controller.lectList?coursesController.availableCourses[coursesController.indexCourseClicked].buy!?
+                Column(
                   children: [
                     Container(
                       width: width,
@@ -434,7 +436,100 @@ class DetailsScreen extends GetView<DetailsController> {
                   ],
                 ):Column(
                   children: [
-                    SizedBox(height: height*0.1,),
+                    Container(
+                      width: width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: AppColors.appWhite,
+                        //border: Border.all(width: 1),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.6), // Shadow color
+                            blurRadius: 5.0, // Spread radius
+                            spreadRadius: 1.0, // Blur radius
+                            offset: const Offset(4.0, 4.0), // Offset in x and y direction
+                          ),
+                        ],
+                      ),
+                      child: Column(children: [
+                        ...List.generate(
+                          controller.list.length>3?3:controller.list.length,
+                              (index) => Column(
+                            children: [
+                              GestureDetector(
+                                child: Container(
+                                  width: width,
+                                  padding: const EdgeInsets.all(20),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Flexible(
+                                        flex: 1,
+                                        child: !controller.subscribe&&index>2?Center(
+                                          child: SvgPicture.asset("assets/icons/lock.svg",width: 25,),
+                                        ):Row(
+                                          children: [
+                                            GestureDetector(
+                                              child: SvgPicture.asset(
+                                                'assets/icons/play_video_left.svg',
+                                                width: 35,
+                                              ),onTap: (){
+                                              // print(controller.chemistryLectures[index]['video_url']);
+                                              print(controller.list[index].uriVideo);
+                                              Get.toNamed(AppPath.prepareScreen);
+                                            },
+                                            ),
+                                            const SizedBox(
+                                              width: 5,
+                                            ),
+                                            GestureDetector(onTap: (){
+                                              print(controller.list[index].uriPDF);
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute<dynamic>(
+                                                  builder: (_) =>  PDFViewerCachedFromUrl(
+                                                    url: controller.list[index].uriPDF ,
+                                                  ),
+                                                ),
+                                              );
+
+
+                                            },
+                                              child: SvgPicture.asset(
+                                                'assets/icons/download.svg',
+                                                width: 35,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Flexible(
+                                        flex: 3,
+                                        child: Text(
+                                          controller.list[index].title,
+                                          style: GoogleFonts.readexPro(
+                                              fontSize: 18,
+                                              color: AppColors.black,
+                                              fontWeight: FontWeight.w500),
+                                          overflow: TextOverflow.ellipsis,
+                                          textDirection: TextDirection.rtl,),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                onTap: (){
+                                  controller.indexClicked=index;
+                                  print(controller.indexClicked);
+
+                                  Get.toNamed(AppPath.prepareScreen);},
+                              ),
+
+                            ],
+                          ),
+                        ),
+                      ]),
+                    ),
+                    SizedBox(height: height*0.05,),
                     TextButton(onPressed: () async {
                       try {
                         Uri url = Uri.parse('https://wa.me/${AppStaticVar.whatsappNumberConnect}'); // Replace with your desired URL
@@ -448,8 +543,8 @@ class DetailsScreen extends GetView<DetailsController> {
 
 
                     },
-                        child: Text(language?"click here to subscribe":"اضغط هنا للاشتراك",style: GoogleFonts.readexPro(fontSize: 22,fontWeight: FontWeight.w500,
-                        color: AppColors.black),)),
+                        child: Text(language?"To Proceed watching lectures, Please Subscribe From here":"لمتابعة المزيد من المحاضرات الرجاء الاشتراك من هنا",style: GoogleFonts.readexPro(fontSize: 18,fontWeight: FontWeight.w500,
+                        color: AppColors.black),textAlign: TextAlign.center,)),
                   ],
                 ):
                 coursesController.availableCourses[coursesController.indexCourseClicked].buy!?Column(
